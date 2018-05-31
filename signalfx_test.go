@@ -20,7 +20,7 @@ func TestHealthMonitor_Datapoints(t *testing.T) {
 func TestSignalFx(t *testing.T) {
 
 	g := gin.New()
-	g.Use(SignalFx(Config{SignalFXKey:"INSERT KEY HERE"}))
+	g.Use(SignalFx(Config{SignalFXKey:"INSERT KEY HERE",ServiceName: "test-code"}))
 
 
 
