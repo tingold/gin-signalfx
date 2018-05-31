@@ -1,12 +1,12 @@
 package middleware
 
 import (
-	"testing"
+	"context"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+	"testing"
 	"time"
-	"context"
 )
 
 func TestDefaultConfig(t *testing.T) {
@@ -20,9 +20,7 @@ func TestHealthMonitor_Datapoints(t *testing.T) {
 func TestSignalFx(t *testing.T) {
 
 	g := gin.New()
-	g.Use(SignalFx(Config{SignalFXKey:"INSERT KEY HERE",ServiceName: "test-code"}))
-
-
+	g.Use(SignalFx(Config{SignalFXKey: "INSERT KEY HERE", ServiceName: "test-code"}))
 
 	srv := &http.Server{
 		Addr:    ":8000",

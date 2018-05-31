@@ -2,13 +2,12 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/signalfx/golib/sfxclient"
 	"github.com/signalfx/golib/datapoint"
+	"github.com/signalfx/golib/sfxclient"
 	"golang.org/x/net/context"
-	"time"
 	"os"
-	"fmt"
 	"sync/atomic"
+	"time"
 )
 
 type Config struct {
@@ -16,7 +15,7 @@ type Config struct {
 	ServiceName string
 }
 
-type GinMonitor struct {
+type ginMonitor struct {
 	id             map[string]string
 	get            int64
 	post           int64
@@ -32,7 +31,7 @@ type GinMonitor struct {
 	requestSize  *sfxclient.RollingBucket
 }
 
-func (c *GinMonitor) Datapoints() []*datapoint.Datapoint {
+func (c *ginMonitor) Datapoints() []*datapoint.Datapoint {
 
 	dps := []*datapoint.Datapoint{sfxclient.Cumulative("gin.request.get", c.id, atomic.SwapInt64(&c.get, 0)),
 		sfxclient.Cumulative("gin.request.head", c.id, atomic.SwapInt64(&c.head, 0)),
@@ -48,13 +47,6 @@ func (c *GinMonitor) Datapoints() []*datapoint.Datapoint {
 	return append(dps, mc.Datapoints()...)
 }
 
-func DefaultConfig() Config {
-	return Config{
-		SignalFXKey: "invalid",
-		ServiceName: "unknown",
-	}
-}
-
 func SignalFx(config Config) gin.HandlerFunc {
 
 	hostname, _ := os.Hostname()
@@ -62,19 +54,19 @@ func SignalFx(config Config) gin.HandlerFunc {
 	id["host.name"] = hostname
 	id["service.name"] = config.ServiceName
 
-	gm := GinMonitor{
+	gm := ginMonitor{
 		id:             id,
 		responseTime:   sfxclient.NewRollingBucket("gin.response.time", id),
 		responseSize:   sfxclient.NewRollingBucket("gin.response.size", id),
 		requestSize:    sfxclient.NewRollingBucket("gin.request.size", id),
-		get:            int64(0),
-		post:           int64(0),
-		delete:         int64(0),
-		patch:          int64(0),
-		put:            int64(0),
-		head:           int64(0),
-		hits:           int64(0),
-		responseErrors: int64(0),
+		get:            0,
+		post:           0,
+		delete:         0,
+		patch:          0,
+		put:            0,
+		head:           0,
+		hits:           0,
+		responseErrors: 0,
 	}
 
 	scheduler := sfxclient.NewScheduler()
@@ -87,7 +79,6 @@ func SignalFx(config Config) gin.HandlerFunc {
 
 	return func(c *gin.Context) {
 
-		fmt.Println("setting values")
 		start := time.Now()
 		reqSz := c.Request.ContentLength
 		verb := c.Request.Method
@@ -107,8 +98,6 @@ func SignalFx(config Config) gin.HandlerFunc {
 		gm.requestSize.Add(float64(reqSz))
 
 		atomic.AddInt64(&gm.hits, 1)
-
-		fmt.Println("verb:" + verb)
 
 		switch verb {
 		case "POST":
