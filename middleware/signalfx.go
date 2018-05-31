@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+//Stores the required config
 type Config struct {
 	SignalFXKey string
 	ServiceName string
@@ -30,6 +31,7 @@ type ginMonitor struct {
 	responseSize *sfxclient.RollingBucket
 	requestSize  *sfxclient.RollingBucket
 }
+
 //Datapoints implements the Collector interface
 func (c *ginMonitor) Datapoints() []*datapoint.Datapoint {
 
@@ -46,6 +48,7 @@ func (c *ginMonitor) Datapoints() []*datapoint.Datapoint {
 	dps = append(dps, sfxclient.GoMetricsSource.Datapoints()...)
 	return append(dps, mc.Datapoints()...)
 }
+
 //SignalFx returns the gin.HandlerFunc required for middleware
 func SignalFx(config Config) gin.HandlerFunc {
 
