@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-//Stores the required config
+//Config stores the required config
 type Config struct {
 	SignalFXKey string
 	ServiceName string
