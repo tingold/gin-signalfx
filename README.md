@@ -2,6 +2,7 @@
 SignalFx Middleware for Gin
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/tingold/gin-signalfx)](https://goreportcard.com/report/github.com/tingold/gin-signalfx)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Super simple usage: 
 ```	
