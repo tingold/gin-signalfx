@@ -9,14 +9,6 @@ import (
 	"time"
 )
 
-func TestDefaultConfig(t *testing.T) {
-
-}
-
-func TestHealthMonitor_Datapoints(t *testing.T) {
-
-}
-
 func TestSignalFx(t *testing.T) {
 
 	g := gin.New()
