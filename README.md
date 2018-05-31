@@ -4,6 +4,9 @@ SignalFx Middleware for Gin
 [![Go Report Card](https://goreportcard.com/badge/github.com/tingold/gin-signalfx)](https://goreportcard.com/report/github.com/tingold/gin-signalfx)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+Configuration: simply provide the SignalFx token and (optionally) the service name when configuring the middleware.  The hostname will also get added to the metadata, along with the service name .
+
+
 Super simple usage: 
 ```	
 import ( github.com/tingold/gin-signalfx/middleware
