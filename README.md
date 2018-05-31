@@ -1,6 +1,8 @@
 # gin-signalfx
 SignalFx Middleware for Gin
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/tingold/gin-signalfx)](https://goreportcard.com/report/github.com/tingold/gin-signalfx)
+
 Super simple usage: 
 ```	
 import ( github.com/tingold/gin-signalfx/middleware
