@@ -1,5 +1,5 @@
 # gin-signalfx
-SignalFx Middleware for Gin
+[SignalFx](https://signalfx.com/) Middleware for [Gin](https://gin-gonic.github.io/gin/)
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/tingold/gin-signalfx)](https://goreportcard.com/report/github.com/tingold/gin-signalfx)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
